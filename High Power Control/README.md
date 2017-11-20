@@ -38,15 +38,16 @@ void main(void)
 
 ## Elaboration
 
-Observing the output on `P1.2` on an oscilloscope, you will see something similar to this ![Pin Toggling](pin_toggling.png).
+In this lab, a high-power system is designed and built on a breadboard. The system has a low-current input and a high-current output. The input, or control, in this system comes from the G2553. The output is able to drive a power resistor with +12V. This is made possible with relay and MOSFET switching.
 
-![How a relay works.](https://cdn4.explainthatstuff.com/how-a-relay-works.gif).
+The input of this system is connected to `P1.2` on the G2553. Observing the output on `P1.2` on an oscilloscope, you will see something similar to this: ![Pin Toggling](pin_toggling.png). In this oscilloscope screenshot, the output on `P1.2` is a square wave with a frequency of 27.8Hz and a 50% duty cycle. This is the input to the control side.
 
-Relay and MOSFET switching requires a modulated signal, which the G2553 is able to generate. These two types of high-power control are similar in function, but each has its own limitations and benefits.
+With relay and MOSFET switching, it is possible to drive a high-power output with a very low-current input. Switching requires a modulated signal, which the G2553 is able to generate. These two types of high-power control are similar in function, but each has its own limitations and benefits.
 
 ### Relay Switching
+The diagram below shows how a simple relay operates. ![How a relay works.](https://cdn4.explainthatstuff.com/how-a-relay-works.gif). It's basically an electromechanical switch: a current is driven into a coil, which generates a magnetic field, which closes a switch. There is almost zero current between each side of the relay, making this a safe application for the microcontroller.
 
-
+For the switch to remain closed, a constant current in the coil must be sustained, or else the magnetic field attracting the switch will dissipate. The G2553 does not have the ability to source a constant current for long periods of time. If the current is constantly switching, however, the G2553 can conserve power.
 
 ### MOSFET Switching
 
