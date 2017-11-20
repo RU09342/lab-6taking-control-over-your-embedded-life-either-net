@@ -38,3 +38,8 @@ void main(void)
 
 ## Elaboration
 
+Relay and MOSFET switching requires a modulated signal, which the G2553 is able to generate. These two types of high-power control are similar in function, but each has its own limitations and benefits.
+
+### Relay Switching
+
+### 
