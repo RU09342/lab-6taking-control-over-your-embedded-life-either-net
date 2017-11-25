@@ -12,7 +12,7 @@ Features source code for driving a high-power load using the MSP430G2553 and eit
 
 ## Precision Control
 
-Designing an R2R ladder for precision-control.
+Designing an R2R-ladder DAC for precision-control. PWM is also reviewed.
 
 ## Open Loop Systems
 
