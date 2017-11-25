@@ -38,7 +38,6 @@ Our results can be seen in the following table.
 
 **Temperature for Fan Speed**
 
-|:-----------------------------------:|
 | Duty Cycle (%) | Temperature (degC) |
 |:--------------:|:------------------:|
 | 10             | 77                 |
