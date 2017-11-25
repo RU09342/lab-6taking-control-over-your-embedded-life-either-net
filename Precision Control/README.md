@@ -9,7 +9,7 @@ These programs are dependent only on having the MSP430F5529-specific header file
 ### How it Works
 The MSP430 microcontroller is used to generate an analog voltage from its PWM pin. The program uses the MCU's hardware PWM capability to adjust the duty cycle based on input via UART. The output (P1.2) is connected to a 3.6k resistor, as shown in the schematic below. The opposite end of the resistor is connected to the positive leg of a 4.7uF capacitor, to complete a simple low-pass filter.
 
-		(Insert Image)
+		![PWM to Analog](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-either-net/blob/master/Precision%20Control/PWMtoAnalog/circuit.JPG)
 The RC circuit is designed to allow the carrier frequency of the PWM signal to pass and block the remaining frequencies, outputting a DC voltage. The carrier frequency is calculated to be approximately 1kHz:
 
 	Period of the square wave = T = 1000 cycles/(frequency of SMCLK) = 1000 cycles * 10^-6 = 0.001
@@ -40,9 +40,6 @@ To generate the triangle wave: Program the MSP430F5529 with the main file in R2R
 | 1000			| 2.33V  |
 | 10000			| 2.29V  |
 | 220k			| 1.93V  |  
------------------
-|
------------------
-|
+
 
 
