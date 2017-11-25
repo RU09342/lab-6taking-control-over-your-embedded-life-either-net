@@ -31,6 +31,8 @@ The MSP430 microcontroller is used to generate a triangle wave on the R/2R ladde
 
 The output voltage is related to the port 3 value through the following equation: V_o = (V_s) * (value/2^N) = 3.3 * (value/2^8)
 
+![R/2R Schematic](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-either-net/blob/master/Precision%20Control/R2R/R2Rschematic.png)
+
 (Insert Image) 
 
 ### Usage
