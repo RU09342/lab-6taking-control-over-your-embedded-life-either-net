@@ -36,7 +36,8 @@ To achieve this, power a fan with 14V and PWM its speed using the microcontrolle
 
 Our results can be seen in the following table.
 
-*** Temperature for Fan Speed ***
+|    **Temperature for Fan Speed**    |
+|:-----------------------------------:|
 | Duty Cycle (%) | Temperature (degC) |
 |:--------------:|:------------------:|
 | 10             | 77                 |
