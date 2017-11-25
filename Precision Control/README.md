@@ -33,10 +33,9 @@ The output voltage is related to the port 3 value through the following equation
 
 ![R/2R Schematic](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-either-net/blob/master/Precision%20Control/R2R/R2Rschematic.png)
 
-(Insert Image) 
 
 ### Usage
-To generate the triangle wave: Program the MSP430F5529 with the main file in R2R5529 and connect each pin to the nodes labeled(a_n) in the schematic above. P3.0 is connected to the node a_0. The most significant bit, P3.7, is connected to a_7. Attach a scope probe to ground and to V_out. The triangle wave should appear on the oscilloscope and vary from 0V to 3.29V.
+To generate the triangle wave: Program the MSP430F5529 with the main file in R2R5529 and connect each pin to the nodes labeled(a_n) in the schematic above. P3.0 is connected to the node a_0. The most significant bit, P3.7, is connected to a_7. Attach a scope probe to ground and to V_out. The triangle wave should appear on the oscilloscope and vary from 0V to 3.29V as shown below.
 
 ## Loading Effects
 
