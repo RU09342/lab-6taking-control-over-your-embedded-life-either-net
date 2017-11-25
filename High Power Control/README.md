@@ -4,7 +4,8 @@ This sub-folder contains the code for high-power control systems.
 
 ## Dependencies
 
-This code requires the MSP430G2553 header file. 
+This code requires the MSP430G2553 header file.
+
 ```c
 #include <msp430g2553.h>
 ```
