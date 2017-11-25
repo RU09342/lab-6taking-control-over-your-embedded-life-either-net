@@ -18,6 +18,10 @@ The RC circuit is designed to allow the carrier frequency of the PWM signal to p
 	
 The UART module is configured for a standard 9600 baud rate on P3.3(TX) and P3.4(RX). Altering the duty cycle will adjust the analog voltage output. The analog voltage is equal to the duty cycle times the system voltage (3.3V). For example, a 50% duty cycle will result in a 1.65V analog voltage.
 
+The oscilloscope screenshot below shows the analog voltage being adjusted over UART. The values entered include 0x64(100%), 0x32(50%) and 0x00(0%).
+
+(Insert Image)
+
 ### Usage
 To use this PWM-analog system, program the MSP430F5529 with the included .c file. Connect pins 3.3 and 3.4 to UART TX and RX respectively. Connect the PWM pin (P1.2) to the resistor leg opposite of the capacitor-resistor node. Open a UART terminal, such as RealTerm, and open the appropriate port. Send values in as hex to alter the duty cycle and thus analog voltage.
 
@@ -33,6 +37,8 @@ The output voltage is related to the port 3 value through the following equation
 To generate the triangle wave: Program the MSP430F5529 with the main file in R2R5529 and connect each pin to the nodes labeled(a_n) in the schematic above. P3.0 is connected to the node a_0. The most significant bit, P3.7, is connected to a_7. Attach a scope probe to ground and to V_out. The triangle wave should appear on the oscilloscope and vary from 0V to 3.29V.
 
 ## Loading Effects
+
+Adding a varying load resistance, as expected, does not affect the frequency of the generated triangle wave. However, it does affect the peak-to-peak voltage of the signal at large resistances. The oscilloscope measurements are included below.
 |Load Resistance| Pk-Pk Voltage |
 | ------------- | ------------- |
 | w/o 			| 2.33V  |
