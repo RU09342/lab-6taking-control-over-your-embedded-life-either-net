@@ -39,6 +39,7 @@ To generate the triangle wave: Program the MSP430F5529 with the main file in R2R
 ## Loading Effects
 
 Adding a varying load resistance, as expected, does not affect the frequency of the generated triangle wave. However, it does affect the peak-to-peak voltage of the signal at large resistances. The oscilloscope measurements are included below.
+
 |Load Resistance| Pk-Pk Voltage |
 | ------------- | ------------- |
 | w/o 			| 2.33V  |
