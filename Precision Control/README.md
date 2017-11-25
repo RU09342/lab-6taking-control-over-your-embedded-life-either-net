@@ -20,7 +20,7 @@ The UART module is configured for a standard 9600 baud rate on P3.3(TX) and P3.4
 
 The oscilloscope screenshot below shows the analog voltage being adjusted over UART. The values entered include 0x64(100%), 0x32(50%) and 0x00(0%).
 
-(Insert Image)
+![AdjustingVoltage](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-either-net/blob/master/Precision%20Control/PWMtoAnalog/adjustingvoltage.png)
 
 ### Usage
 To use this PWM-analog system, program the MSP430F5529 with the included .c file. Connect pins 3.3 and 3.4 to UART TX and RX respectively. Connect the PWM pin (P1.2) to the resistor leg opposite of the capacitor-resistor node. Open a UART terminal, such as RealTerm, and open the appropriate port. Send values in as hex to alter the duty cycle and thus analog voltage.
