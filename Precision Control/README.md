@@ -37,6 +37,8 @@ The output voltage is related to the port 3 value through the following equation
 ### Usage
 To generate the triangle wave: Program the MSP430F5529 with the main file in R2R5529 and connect each pin to the nodes labeled(a_n) in the schematic above. P3.0 is connected to the node a_0. The most significant bit, P3.7, is connected to a_7. Attach a scope probe to ground and to V_out. The triangle wave should appear on the oscilloscope and vary from 0V to 3.29V as shown below.
 
+![Oscilloscope](https://github.com/RU09342/lab-6taking-control-over-your-embedded-life-either-net/blob/master/Precision%20Control/R2R/scope.png)
+
 ## Loading Effects
 
 Adding a varying load resistance, as expected, does not affect the frequency of the generated triangle wave. However, it does affect the peak-to-peak voltage of the signal at large resistances. The oscilloscope measurements are included below.
