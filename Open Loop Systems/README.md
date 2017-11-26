@@ -26,11 +26,24 @@ Given a desired temperature, this code sets a PWM duty cycle. It is intended to 
 
 ## Elaboration
 
-We powered a fan with 14V and PWM'ed its speed using the code. Then, build the following circuit:
+We powered a fan with 14V and PWM'ed its speed using this code, which initializes Timer A to perform PWM:
+
+```c
+void initPWM(void)
+{
+    TA0CTL = (MC__UP + TASSEL__SMCLK); // Configure TA0: Upmode using 1MHz clock / 4 = 250k
+    TA0CCR0 = 100; // 250k / 255 = ~1kHz, set compare to 255
+
+    TA0CCTL1 = OUTMOD_7;
+    TA0CCR1  = 20; // Green
+}
+```
+
+Then, we built the following circuit:
 
 ![Circuit]()
 
-
+We then incremented the duty cycle by 10% and observed the voltage using a DMM and converted this to a temperature. The voltage was just 5 orders of magnitude lower than the temperature, so this was a simple conversion.
 
 Our results can be seen in the following table.
 
