@@ -1,6 +1,6 @@
 # Lab 6: Open Loop Systems
 
-This sub-folder contains the code for Lab 6: Open Loop Systems.
+This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein, Stephen Glass, and Brendan Nugent.
 
 ## Dependencies
 
@@ -26,9 +26,7 @@ Given a desired temperature, this code sets a PWM duty cycle. It is intended to 
 
 ## Elaboration
 
-We can control the temperature of a voltage regulator as it heats up using an open-loop system. By touching a temperature sensor to the voltage regulator (safely, on a breadboard), we can observe its temperature. Then, turning a fan at a specific speed, we can control this temperature. With this system, we can determine a relationship between the speed of the fan and the temperature of the regulator.
-
-To achieve this, power a fan with 14V and PWM its speed using the microcontroller (several online examples of PWM code for MSP430 devices are available). Then, build the following circuit:
+We powered a fan with 14V and PWM'ed its speed using the code. Then, build the following circuit:
 
 ![Circuit]()
 
