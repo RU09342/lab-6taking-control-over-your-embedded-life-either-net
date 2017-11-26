@@ -65,4 +65,12 @@ When the signal from the MSP430 is low, or zero, the relay will be open and the 
 
 ### MOSFET Switching
 
-MOSFET switching works similar to relay switching (and requires one less relay to work properly!). 
+MOSFET switching works similar to relay switching (and requires one less relay to work properly!). First, there are two types of configurations that are viable here: high- and low-side switch. A low-side switch looks like this, with a common-emitter:
+
+![Low-side switch](LOWSIDE.JPG)
+
+...and a high-side switch, with the collector of the first stage connected to the base of the second, looks like this:
+
+![High-side switch](HIGHSIDE.JPG)
+
+Like in the relay switch, the NMOS protects the MSP430 from the backflow of current. The purpose of the diode shorting the collector to the voltage rail is to stabilize the circuit when the circuit loses power. Once the +12V is disconnected from the circuit, leftover current in the system will propogate around this loop, quickly dissipating the flyback current.
