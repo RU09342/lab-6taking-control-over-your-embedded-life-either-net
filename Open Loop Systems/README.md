@@ -84,4 +84,4 @@ else
 }
 ```
 
-So, finally, the integer argument in the `setTemperature` will set the duty cycle output based on the calculated value, thereby setting the speed of the fan. 
+So, finally, the integer argument in the `setTemperature()` function will set the duty cycle output based on the calculated value, thereby setting the speed of the fan. 
