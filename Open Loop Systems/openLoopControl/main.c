@@ -21,6 +21,7 @@ void LCDInit();
 void buttonInit();
 void initLeds(void);
 void initPWM(void);
+void setTemperature(int temp);
 
 int ADC_check;
 int ADCdisplay = 1;
@@ -45,6 +46,8 @@ int main(void)
     initPWM();
     __delay_cycles(400);                                     // Delay for reference settling
     initializeTimer(4);                                     // 4 Hertz timer
+
+    setTemperature(62);
 
     __bis_SR_register(LPM0_bits | GIE);                      // LPM0, ADC_ISR will force exit
     __no_operation();
@@ -258,5 +261,20 @@ void initPWM(void)
     TA0CCR0 = 100; // 250k / 255 = ~1kHz, set compare to 255
 
     TA0CCTL1 = OUTMOD_7;
-    TA0CCR1  = 20; // Green
+    TA0CCR1  = 0; // Fan PWM @ P1.6
+}
+
+void setTemperature(int temp)
+{
+    int duty = 0;
+    //y = -36.485x + 75.267
+    if(temp >= 54) // first piecewise function
+    {
+        duty = (int)(-1.754386*(temp-81.3));
+    }
+    else
+    {
+        duty = (int)(-5.263158*(temp-61.4));
+    }
+    TA0CCR1 = duty;
 }
