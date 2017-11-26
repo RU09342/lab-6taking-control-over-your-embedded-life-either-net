@@ -1,6 +1,6 @@
 # Lab 6: Open Loop Systems
 
-This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein, Stephen Glass, and Brendan Nugent.
+This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein and Brendan Nugent. We would also like to thank Stephen Glass for helping us out with the code and circuit design.
 
 ## Dependencies
 
