@@ -66,7 +66,7 @@ We then generated a graph in Excel.
 
  ![Temperature vs. Duty Cycle](temp_vs_duty.png)
 
-Temperature can then be represented in a piecewise function. In the code, when the duty cycle is less than or equal to 54, this function is used:
+Temperature can then be represented in a piecewise function. In the code, when the temperature is less than or equal to 54 degrees Celcius, this function is used:
 
 ```c
 if(temp >= 54) // first piecewise function
@@ -83,3 +83,5 @@ else
     duty = (int)(-5.263158*(temp-61.4));
 }
 ```
+
+So, finally, the integer argument in the `setTemperature` will set the duty cycle output based on the calculated value, thereby setting the speed of the fan. 
