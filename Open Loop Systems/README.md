@@ -1,27 +1,87 @@
 # Lab 6: Open Loop Systems
-Believe it or not, up to this point, any time that you have wanted to control your LED color or brightness so far, you have been attempting to control an Open Loop System. Basically, when in your code you state that you want a certain brightness or even a duty cycle, you are going on blind faith that the output is actually what it is supposed to be. If something seemed off, you probably went back into the code and tweaked some values. In the case of actual Systems and Control Theory, you are the feedback loop, providing some corrective signal to the system to help obtain a closer output, and we will deal with this in the Milestone. For now, we need to focus on system modeling getting a system to a desirable state. For this lab, you will be attempting to keep a voltage regulator within a specific temperature range using a DC fan which you will have control over. For this part to be a success, you need to figure out what is the minimum fan speed you need to cool off the regulator so that is stays operational.
 
-## Voltage Regulator
-You will need to take a 5V regulator from the back of the lab and drop the output across a 100 ohm power resistor (1 watt should do the trick). The input to the voltage regulator will be between 15-20V. I am giving you a range because when it is dropping a ton of voltage, it may not be able to cool it off enough with just a fan. Most of the voltage regulators in the back will have a tab on the top which we can place a thermistor to. If provided, you can use that tab, or place a through-hole thermistor making contact to the component on your board.
+This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein and Brendan Nugent. We would also like to thank Stephen Glass for helping us out with the code and circuit design.
 
-## Fan Control
-It will be up to you, the engineer, to decide which method you want to use to control the DC fan. Most of these fans run off of 5V, and as such can not directly be driven by your microcontroller. Depending on the type of fan you use, some can take in a PWM control signal, others will need to have the voltage be modified. Since we are not providing you with any mechanical mounts, you are free to place the fan in whatever orientation you wish, so long as it is safe to operate.
+## Dependencies
 
-## Temperature Reading
-It would be really useful to see what the temperature of your system is so you can determine the performance of your system. This can be done either by displaying the current temperature over a display, passing the information over UART, or other ways as well. Remember that UART is Asynchronous, meaning that you can send information whenever you would like from your controller back to a PC, it doesn't have to be reactionary. If you used MATLAB in Lab 5, you could even plot the temperature over time which could be extremely useful in figuring out whether your system is actually doing something. 
+This code requires two header files: one for the MSP430FR6989
 
+```c
+#include <msp430fr6989.h>
+```
 
-## System Modeling
-For starters, you need to figure out with your fan at MAX what the temperature that the voltage regulator reaches. Your thermistors/PTATs/Whatever else you want to use to measure temperature may not be calibrated, so your results may be consistently off with reality, but for now that is ok. After figuring this out, in increments of about 5C, see what fan speed you need to have to maintain that temperature. Do this until your regulator gets down to about 30C-40C, keeping a record of what your applied Duty Cycles or voltages were. Then using this information, attempt to find a transfer function between the applied input and the resulting temperature to model the system behavior. A simple way to do this is in MATLAB or Excel to plot your applied input on the x-axis, and your steady state temperature on your y-axis and attempt a line fit.
+and one for the LCD Driver.
 
-## Open Loop Control System
-You then need to use this information to make a final open loop control system where a user can state what temperature they want the regulator to be maintained at, and the microcontroller will basically calculate/look up what it needs to set the fan to. Do not over complicate this and make it some elaborate system. All this needs to do is some math and set a duty cycle or voltage, and display in some capacity the current temperature of the system as you are measuring it.
+```c
+#include "LCDDriver.h"
+```
 
+## Usage
 
-## Deliverables
-Your README needs to contain schematics of your system, the plot of the plot of the temperature and input voltages at the 5C steps, and a brief talk about why you chose the processor you did along with the control technique for the fan. As always, you should include a brief description of the code you generated to run the experiment. You need to also include information on how to use your control software, including what inputs it is expecting and what range of values you are expecting. At this time you are not going to need to user-proof the system, but you will for the milestone, so keep it in the back of your head.
+This project was debugged and is intended to be debugged in Code Composer Studio. Create a new project with the FR6989 as the target configuration. Include the three files in the source code folder in the project and debug.
 
-### What your README and code doesn't need
-For starters, note the fact I ask you to do this with only one board. You also do not need to give me all of your code in the README, just tell me functionally what is going on along with showing off any functions you may have made.
+## Function
 
-Your code *DOES NOT* need to perform any sort of closed loop control. Save that for the milestone. This means that your system does not need to try to actively change the fan speed without your help. You are going to essentially make your microcontroller one big Convert-o-Box to turn a desired temperature into a controllable signal, and then be able to read a temperature.
+Given a desired temperature, this code sets a PWM duty cycle. It is intended to be used in a system with a linear regulator, a temperature sensor to monitor the regulator's temperature, and a fan to control this temperature. The duty-cycle-to-temperature relationship was determined through experimentation.
+
+## Elaboration
+
+We powered a fan with 14V and PWM'ed its speed using this code, which initializes Timer A to perform PWM:
+
+```c
+void initPWM(void)
+{
+    TA0CTL = (MC__UP + TASSEL__SMCLK); // Configure TA0: Upmode using 1MHz clock / 4 = 250k
+    TA0CCR0 = 100; // 250k / 255 = ~1kHz, set compare to 255
+
+    TA0CCTL1 = OUTMOD_7;
+    TA0CCR1  = 20; // Green
+}
+```
+
+Then, we built the following circuit:
+
+![Circuit]()
+
+We then incremented the duty cycle by 10% and observed the voltage using a DMM and converted this to a temperature. The voltage was just 5 orders of magnitude lower than the temperature, so this was a simple conversion.
+
+Our results can be seen in the following table.
+
+**Temperature for Fan Speed**
+
+| Duty Cycle (%) | Temperature (degC) |
+|:--------------:|:------------------:|
+| 10             | 77                 |
+| 20             | 69                 |
+| 30             | 63                 |
+| 40             | 58                 |
+| 50             | 54                 |
+| 60             | 51                 |
+| 70             | 47                 |
+| 80             | 46                 |
+| 90             | 44                 |
+| 100            | 43                 |
+
+We then generated a graph in Excel.
+
+ ![Temperature vs. Duty Cycle](temp_vs_duty.png)
+
+Temperature can then be represented in a piecewise function. In the code, when the temperature is less than or equal to 54 degrees Celcius, this function is used:
+
+```c
+if(temp >= 54) // first piecewise function
+{
+   duty = (int)(-1.754386*(temp-81.3));
+}
+```
+
+...and when it is greater, this function:
+
+```c
+else
+{
+    duty = (int)(-5.263158*(temp-61.4));
+}
+```
+
+So, finally, the integer argument in the `setTemperature()` function will set the duty cycle output based on the calculated value, thereby setting the speed of the fan. 
