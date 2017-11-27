@@ -1,16 +1,13 @@
 /**
  * Pulse width modulation using the internal connection between TIMERA output and P1.2
- * To test the PWM, simply connect the jumper next to LED0 to P1.2
- * Pressing the on-board button, P2.1 will alter the Duty Cycle by 10%
- * 10/9/17
- * Brendan Nugent
+ * The program is designed for use with the MSP430F5529. It can be used with an RC circuit to generate an analog voltage from the PWM signal
+ * Date: 11/29/2017
+ * Authors: Damon Boorstein and Brendan Nugent
  */
 
 #include <msp430.h>
 
 unsigned int x = 0;
-unsigned int buttonPressed = 0;
-unsigned int count = 0;
 
 void initializeTimer();
 
@@ -64,7 +61,7 @@ void __attribute__ ((interrupt(USCI_A0_VECTOR))) USCI_A0_ISR (void)
     while (!(UCA0IFG&UCTXIFG));             // USCI_A0 TX buffer ready?
     UCA0TXBUF = UCA0RXBUF;                  // TX -> RXed character
     x = UCA0RXBUF;
-    TA0CCR1 = 10 * x;
+    TA0CCR1 = 10 * x;						// set CCR1 according to duty cycle selected
     break;
   case 4:break;                             // Vector 4 - TXIFG
   default: break;
