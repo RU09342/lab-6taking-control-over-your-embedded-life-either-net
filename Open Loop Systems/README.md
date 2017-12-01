@@ -1,7 +1,6 @@
 # Lab 6: Open Loop Systems
 
-This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein and Brendan Nugent. We would also like to thank Stephen Glass for helping us out with the code and circuit design.
-
+This sub-folder contains the code for Lab 6: Open Loop Systems by Damon Boorstein, Brendan Nugent, and Stephen Glass.
 ## Dependencies
 
 This code requires two header files: one for the MSP430FR6989
@@ -43,7 +42,7 @@ Then, we built the following circuit:
 
 ![Circuit]()
 
-We then incremented the duty cycle by 10% and observed the voltage using a DMM and converted this to a temperature. The voltage was just 5 orders of magnitude lower than the temperature, so this was a simple conversion.
+We then incremented the duty cycle by 10% and observed the voltage using a DMM and converted this to a temperature. The voltage output of the LM35 is calibrated to the centigrate temperature scale (10mV/°C), so this was a simple conversion.
 
 Our results can be seen in the following table.
 
@@ -66,7 +65,7 @@ We then generated a graph in Excel.
 
  ![Temperature vs. Duty Cycle](temp_vs_duty.png)
 
-Temperature can then be represented in a piecewise function. In the code, when the temperature is less than or equal to 54 degrees Celcius, this function is used:
+Temperature can then be represented in a piecewise function. In the code, when the temperature is less than or equal to 54°C, this function is used:
 
 ```c
 if(temp >= 54) // first piecewise function
